@@ -22,9 +22,12 @@ public class Library {
     private final String FILENAME = "books.csv";
     private final String FILENAMEUSER = "users.csv";
     boolean bookFound = false;
+    boolean userFound = false;
+    String yes = "yes", no = "no";
     Scanner sc = new Scanner(System.in);
 
-   /*  public void test(){ // Teste para adicionar e colocar Livros
+    // Teste para adicionar e colocar Livros
+   /*  public void test(){ 
         addBook();
         addBook();
         showBooks();
@@ -33,18 +36,40 @@ public class Library {
         showBooks();
     } teste passou */
     
-   /*  public void test(){ // Teste para salvar os dados no banco
+    // Teste para salvar os dados no banco
+   /*  public void test(){ 
         loadBooksFromCSV();
         showBooks();
         addBook();
         saveBooksToCSV();
     } */
 
-    public void test(){
+    // Teste para salvar e carregar os usarios
+   /*  public void test(){
         loadBooksFromCSV();
         loadUsersToCSV();
         addUser();
+        showUsers();
         saveUsersToCSV();
+    } */
+
+    // Teste para remover usarios do banco
+    /*public void test(){
+        loadUsersToCSV();
+        removeUser();
+        saveUsersToCSV();
+    } */
+
+    public void test(){
+        loadBooksFromCSV();
+        addBook();
+        findBookByName();
+    }
+
+    public void run(){
+        loadUsersToCSV();
+        loadBooksFromCSV();
+
     }
 
     public void addBook(){
@@ -139,6 +164,22 @@ public class Library {
         }
     }
 
+    public void findBookByName(){
+        System.out.println("Write the name of the book: ");
+        String name = sc.next();
+        for(int i = 0; i < books.size(); i++){
+            Book b = books.get(i);
+            if(b.getName().toLowerCase().contains(name.toLowerCase())){
+                System.out.println("[Book: " + b.getName() + "] [Author: " + b.getAuthor() + "] [Pages: " + b.getPages() + "] [Year Of Publication: " + b.getyOp() + "] [Is Available: " + 
+                b.isAvailable()+ "]");
+                bookFound = true;
+            }
+        }
+        if(!bookFound){
+            System.out.println("Book not finded.");
+        }
+    }
+
     public void addUser() {
         try{
             System.out.println("Name: ");
@@ -146,8 +187,38 @@ public class Library {
             Person p = new Person(name, users.size()+1);
             p.setId(users.size()+1);
             users.add(p);
+            System.out.println("User: " + p.getName() + " added with success");
         }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    public void removeUser(){
+        try{
+            System.out.println("Write the name of the user: ");
+                String name = sc.next();
+                System.out.println("Write the Id of the user: ");
+                int id = sc.nextInt();
+            for(int i = 0; i < users.size(); i ++){
+                Person p = users.get(i);
+                if(p.getName().toLowerCase().contains(name.toLowerCase()) && p.getId() == id){
+                    users.remove(p);
+                    System.out.println("User removed with success.");
+                    userFound = true;
+                }
+            }
+            if(!userFound){
+                System.out.println("None users finded.");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showUsers(){
+        for(int i = 0; i < users.size(); i++){
+            Person p = users.get(i);
+            System.out.println("User: " + p.getName() + " Id: " + p.getId());
         }
     }
 
@@ -188,4 +259,6 @@ public class Library {
             e.printStackTrace();
         }
     }
+
+    
 }
