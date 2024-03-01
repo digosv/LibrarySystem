@@ -9,8 +9,9 @@ public class Person {
     ArrayList<Book> historyOfBooks = new ArrayList<>();
     ArrayList<Book> booksWith = new ArrayList<>();
 
-    public Person(String name) {
+    public Person(String name, int id) {
         this.name = name;
+        this.id = id;
     }
 
     public int getId() {
